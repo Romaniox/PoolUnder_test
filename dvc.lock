@@ -1,0 +1,48 @@
+schema: '2.0'
+stages:
+  prepare_dataset:
+    cmd: ..\..\venv\Scripts\python.exe ./utils/dataset_test_create.py
+    deps:
+    - path: utils/dataset_test_create.py
+      md5: 23ecc7422f3910282dbe1402cf28388d
+      size: 526
+    params:
+      params.yaml:
+        dataset.path_test: D:\datasets\pool\under\dataset_120623
+    outs:
+    - path: dataset/yolo.yaml
+      md5: 2afaa81a040f2bed91f36a2732969284
+      size: 123
+  prepare_model:
+    cmd: ..\..\venv\Scripts\python.exe ./utils/model_create.py
+    deps:
+    - path: utils/model_create.py
+      md5: 4ae1e2e74f6bab3167b3ca0013b56ece
+      size: 2154
+    params:
+      params.yaml:
+        model_test.name: yolov8_under_m_part2.pt
+    outs:
+    - path: models/yolov8_under.pt
+      md5: 33a35719341fb60ceaea1064f0c1a468
+      size: 51993952
+  test:
+    cmd: ..\..\venv\Scripts\python.exe ./utils/start_test.py --model_path ./models/yolov8_under.pt
+      --data_path ./dataset/yolo.yaml
+    deps:
+    - path: dataset/yolo.yaml
+      md5: 2afaa81a040f2bed91f36a2732969284
+      size: 123
+    - path: models/yolov8_under.pt
+      md5: 33a35719341fb60ceaea1064f0c1a468
+      size: 51993952
+    - path: utils/start_test.py
+      md5: 3f4bcb62df6ccaa3b51b82b70174ebba
+      size: 1507
+    outs:
+    - path: metrics/metrics.json
+      md5: 5680d6627e93452062f9bbf045ec3ed2
+      size: 199
+    - path: plots/prc.json
+      md5: a87f94f8fd8830f4824c054c4265c18d
+      size: 748025

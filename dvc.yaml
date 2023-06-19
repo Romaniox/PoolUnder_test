@@ -1,0 +1,43 @@
+stages:
+  prepare_model:
+    cmd: ..\..\venv\Scripts\python.exe ./utils/model_create.py
+    deps:
+      - utils/model_create.py
+    params:
+      - model_test.name
+    outs:
+      - models/yolov8_under.pt
+
+  prepare_dataset:
+    cmd: ..\..\venv\Scripts\python.exe ./utils/dataset_test_create.py
+    deps:
+      - utils/dataset_test_create.py
+    params:
+      - dataset.path_test
+    outs:
+      - dataset/yolo.yaml
+
+  test:
+    cmd: ..\..\venv\Scripts\python.exe ./utils/start_test.py --model_path ./models/yolov8_under.pt --data_path ./dataset/yolo.yaml
+    deps:
+      - dataset/yolo.yaml
+      - models/yolov8_under.pt
+      - utils/start_test.py
+    metrics:
+      - metrics/metrics.json:
+          cache: false
+
+    plots:
+      - plots/prc.json:
+          cache: false
+
+
+plots:
+  plots/prc.json:
+    template: simple
+    x: recall
+    y: precision
+
+# params:
+#   - params.yaml
+
