@@ -1,4 +1,4 @@
 dataset:
   path_test: D:\datasets\pool\under\dataset_120623
 model_test:
-  name: yolov8_under_m_part2.pt
+  name: yolov8m_120623.pt
