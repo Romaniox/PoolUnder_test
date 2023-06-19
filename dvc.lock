@@ -4,26 +4,30 @@ stages:
     cmd: ..\..\venv\Scripts\python.exe ./utils/dataset_test_create.py
     deps:
     - path: utils/dataset_test_create.py
-      md5: 23ecc7422f3910282dbe1402cf28388d
+      hash: md5
+      md5: 237ff9d74c9e61f4741d541dc1863963
       size: 526
     params:
       params.yaml:
         dataset.path_test: D:\datasets\pool\under\dataset_120623
     outs:
     - path: dataset/yolo.yaml
-      md5: 2afaa81a040f2bed91f36a2732969284
+      hash: md5
+      md5: 693111ed043f22c290150ebc61128fe7
       size: 123
   prepare_model:
     cmd: ..\..\venv\Scripts\python.exe ./utils/model_create.py
     deps:
     - path: utils/model_create.py
-      md5: 4ae1e2e74f6bab3167b3ca0013b56ece
+      hash: md5
+      md5: f34460e9eb24d97f9db915cfc9ce9b6a
       size: 2154
     params:
       params.yaml:
         model_test.name: yolov8_under_m_part2.pt
     outs:
     - path: models/yolov8_under.pt
+      hash: md5
       md5: 33a35719341fb60ceaea1064f0c1a468
       size: 51993952
   test:
@@ -31,18 +35,23 @@ stages:
       --data_path ./dataset/yolo.yaml
     deps:
     - path: dataset/yolo.yaml
-      md5: 2afaa81a040f2bed91f36a2732969284
+      hash: md5
+      md5: 693111ed043f22c290150ebc61128fe7
       size: 123
     - path: models/yolov8_under.pt
+      hash: md5
       md5: 33a35719341fb60ceaea1064f0c1a468
       size: 51993952
     - path: utils/start_test.py
-      md5: 3f4bcb62df6ccaa3b51b82b70174ebba
+      hash: md5
+      md5: fc088073c0eb78ca7f3133add53579b2
       size: 1507
     outs:
     - path: metrics/metrics.json
+      hash: md5
       md5: 5680d6627e93452062f9bbf045ec3ed2
       size: 199
     - path: plots/prc.json
-      md5: a87f94f8fd8830f4824c054c4265c18d
+      hash: md5
+      md5: ed5fbd10f3918f6972912e750f50bc84
       size: 748025

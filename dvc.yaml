@@ -31,12 +31,11 @@ stages:
       - plots/prc.json:
           cache: false
 
-
 plots:
-  plots/prc.json:
-    template: simple
-    x: recall
-    y: precision
+  - plots/prc.json:
+      template: simple
+      x: recall
+      y: precision
 
 # params:
 #   - params.yaml
